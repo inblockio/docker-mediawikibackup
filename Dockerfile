@@ -9,9 +9,12 @@ RUN go get -d -v github.com/odise/go-cron \
 
 # Package
 FROM debian:buster-slim
-LABEL maintainer="selim013@gmail.com"
 
-RUN apt-get update && apt-get install -y --no-install-recommends gnupg dirmngr bzip2 && rm -rf /var/lib/apt/lists/*
+ARG BINFILES_REPO="https://github.com/inblockio/MediaWiki_Backup"
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gnupg dirmngr bzip2 apt-transport-https ca-certificates git && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN set -uex; \
     # gpg: key 5072E1F5: public key "MySQL Release Engineering <mysql-build@oss.oracle.com>" imported
@@ -42,6 +45,12 @@ COPY my.cnf /etc/mysql/
 RUN chmod +x /usr/local/bin/go-cron \
     /usr/local/bin/automysqlbackup \
     /usr/local/bin/start.sh
+
+COPY scripts/* /usr/local/bin
+
+RUN update-ca-certificates
+RUN git clone "${BINFILES_REPO}.git" /tmp/binfiles && \
+    cp /tmp/binfiles/*.sh /usr/local/bin
 
 WORKDIR /backup
 

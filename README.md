@@ -1,13 +1,13 @@
-# Docker AutoMySQLBackup
+# Docker AutoMediaWikiBackup
 
-A lightweight image for creating and managing scheduled MySQL backups.
-Runs a slightly modified [AutoMySQLBackup](https://sourceforge.net/projects/automysqlbackup/) utility.
+A lightweight image for creating and managing scheduled [MediaWiki](https://www.mediawiki.org/wiki/MediaWiki) backups.
+Runs a slightly modified [AutoMySQLBackup](https://sourceforge.net/projects/automysqlbackup/) utility for scheduled database backups and integrates scripts for backing-up a MediaWiki installation.
+
+Derivative work of [Docker AutoMySQLBackup](https://github.com/selim13/docker-automysqlbackup). During development code may be use-case specific. Fork repo to meet your needs.
 
 ## Supported tags and respective `Dockerfile` links
 
-- [`2.6-9` (_Dockerfile_)](https://github.com/selim13/docker-automysqlbackup/blob/2.6-9/Dockerfile), main image with mysql8 client
-- [`2.6-9a-mysql57` (_Dockerfile_)](https://github.com/selim13/docker-automysqlbackup/blob/2.6-9a-mysql57/Dockerfile), version with mysql5.7 client
-- [`latest` (_Dockerfile_)](https://github.com/selim13/docker-automysqlbackup/blob/master/Dockerfile) tracks the `master` branch, may be buggy
+- [`latest` (_Dockerfile_)](https://github.com/0xc000007b/docker-automysqlbackup/blob/master/Dockerfile) tracks the `master` branch, may be buggy
 
 ## Version
 
@@ -15,7 +15,7 @@ This image uses AutoMySQLBackup 2.5 from Debian Linux source repository as a bas
 Original source can be cloned from `git://anonscm.debian.org/users/zigo/automysqlbackup.git` or taken at the
 appropriate [Debian package](https://packages.debian.org/sid/automysqlbackup) page.
 
-Custom modifications:
+Custom modifications to AutoMySQLBackup:
 
 - passed logging to stdout/stderr
 - removed error logs mailing code
