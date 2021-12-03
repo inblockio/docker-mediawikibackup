@@ -3,7 +3,7 @@
 set -e
 
 imgfile="$(find /backup/latest -name '*.img.tar*')"
-echo "Restoring images $(basename "$imgfile") from directory $imgfile"
+echo "Restoring images from $imgfile"
 if [ -f "$imgfile" ]; then
   rm -rf /var/www/html/images/*
   tar xf "$imgfile" --directory=/var/www/html/images
