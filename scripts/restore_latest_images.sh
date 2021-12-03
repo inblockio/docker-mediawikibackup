@@ -2,7 +2,7 @@
 
 set -e
 
-imgfile="$(find /backup/latest/images -name '*.img.tar*')"
+imgfile="$(find /backup/latest -name '*.img.tar*')"
 if [ -f "$imgfile" ]; then
   rm -rf "$imgfile"
   tar xf "$imgfile" --directory=/var/www/html/images
