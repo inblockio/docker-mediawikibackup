@@ -4,7 +4,7 @@ set -e
 
 imgfile="$(find /backup/latest -name '*.img.tar*')"
 if [ -f "$imgfile" ]; then
-  rm -rf "$imgfile"
+  rm -rf /var/www/html/images/*
   tar xf "$imgfile" --directory=/var/www/html/images
 else
   echo "Error: Unable to locate image archive in backup system"
