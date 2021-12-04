@@ -11,7 +11,6 @@ unlock_mediawiki() {
     message='$wgReadOnly = "Backup in progress.";'
     file=$MEDIAWIKI_LOCALSETTINGS_PATH
     if grep -q "$message" "$file"; then
-        echo "DEBUG: Start unlock"
         sed "/$message/d" "$file" >modified_local_settings
         mv modified_local_settings "$file"
     else
@@ -24,7 +23,6 @@ lock_mediawiki() {
     message='$wgReadOnly = "Backup in progress.";'
     file=$MEDIAWIKI_LOCALSETTINGS_PATH
     if grep -q "$message" "$file"; then
-        echo "DEBUG: Start lock"
         echo "Warn: MediaWiki already locked."
     else
         echo "$message" | tee -a "$file" >/dev/null
