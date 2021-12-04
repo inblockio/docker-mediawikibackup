@@ -4,7 +4,7 @@ set -e
 
 # Absolute path to MediaWiki settings configuration
 # Override environment variable as needed
-MEDIAWIKI_LOCALSETTINGS_PATH=/var/www/html/LocalSettings.php
+MEDIAWIKI_LOCALSETTINGS_PATH=${MEDIAWIKI_LOCALSETTINGS_PATH:-/var/www/html/LocalSettings.php}
 
 unlock_mediawiki() {
     # shellcheck disable=SC2016
