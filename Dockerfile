@@ -55,6 +55,7 @@ RUN git clone "${BINFILES_REPO}.git" /tmp/binfiles && \
 WORKDIR /backup
 
 ENV USERNAME=           \
+    MEDIAWIKI_LOCALSETTINGS_PATH=/var/www/html/LocalSettings.php \
     PASSWORD=           \
     DBHOST=localhost    \
     DBNAMES=all         \
