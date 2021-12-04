@@ -1,7 +1,8 @@
 # Docker AutoMediaWikiBackup
 
 A lightweight image for creating and managing scheduled [MediaWiki](https://www.mediawiki.org/wiki/MediaWiki) backups.
-Runs a slightly modified [AutoMySQLBackup](https://sourceforge.net/projects/automysqlbackup/) utility for scheduled database backups and integrates scripts for backing-up a MediaWiki installation.
+
+Runs a slightly modified [AutoMySQLBackup](https://sourceforge.net/projects/automysqlbackup/) utility for scheduled database backups and integrates scripts for backing-up a WikiMedia installation using a MySQL or MariaDB database.
 
 Derivative work of [Docker AutoMySQLBackup](https://github.com/selim13/docker-automysqlbackup). During development code may be use-case specific. Fork repo to meet your needs.
 
@@ -21,7 +22,13 @@ Custom modifications to AutoMySQLBackup:
 - removed error logs mailing code
 - made default configuration more suitable for docker container
 
+Custom modifications to Docker AutoMySQLBackup:
+
+- locks and unlocks edits to wiki
+- backup and restore image uploads
 # Image usage
+
+While running backups ensure you've locked WikiMedia to prevent writes to the database by setting `MEDIAWIKI_SETTINGS_CONFIG_PATH` to the absolute path for the `LocalSettings.php` file for your application. If left unspecified, a default setting of `/etc/LocalSettings.php` will be used.
 
 Let's create a bridge network and start a MySQL container as an example.
 
@@ -35,6 +42,7 @@ For the basic one-shot backup, you can run a container like this:
 
 ```console
 docker run --network dbtest \
+    -e MEDIAWIKI_SETTINGS_CONFIG_PATH=./config/LocalSettings.php
     -v '/var/lib/automysqlbackup:/backup' \
     -e DBHOST=some-mysql \
     -e DBNAMES=all \
@@ -44,13 +52,14 @@ docker run --network dbtest \
     automysqlbackup
 ```
 
-Container will create dumps of all datebases from MySQL inside `/var/lib/automysqlbackup` directory and exit.
+Container will create dumps of all databases from MySQL inside `/var/lib/automysqlbackup` directory and exit.
 
 To run container in a scheduled mode, populate `CRON_SCHEDULE` environment variable with a cron expression.
 
 ```console
 docker run --network dbtest \
     -v '/var/lib/automysqlbackup:/backup' \
+    -e MEDIAWIKI_SETTINGS_CONFIG_PATH=./config/LocalSettings.php
     -e DBHOST=some-mysql \
     -e DBNAMES=all \
     -e USERNAME=root \
@@ -81,6 +90,9 @@ Quick tips:
   as YAML sequence `- CRON_SCHEDULE="0 * * * *"` will preserve quotes breaking go-cron (Issue #1).
 
 ## Environment variables
+
+- **MEDIAWIKI_SETTINGS_CONFIG_PATH**\
+  Pass absolute path to WikiMedia LocalSettings.php, e.g. `/etc/LocalSettings.php`
 
 - **CRON_SCHEDULE**\
   If set to cron expression, container will start a cron daemon for scheduled backups.
@@ -137,7 +149,7 @@ Quick tips:
   Default value: `no`
 
 - **LATEST**\
-  Additionally keep a copy of the most recent backup in a seperate directory.\
+  Additionally keep a copy of the most recent backup in a separate directory.\
   Default value: `no`
 
 - **MAX_ALLOWED_PACKET**\
@@ -183,5 +195,4 @@ Currently, this is only supported for `USERNAME` and `PASSWORD`.
 
 ## License
 
-Similar to the original automysqlbackup script, all sources for this image
-are licensed under [GPL-2.0](./LICENSE.txt).
+Similar to the original automysqlbackup script and the original Docker AutoMySQLBackup utility, all sources for this image are licensed under [GPL-2.0](./LICENSE.txt).

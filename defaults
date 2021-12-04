@@ -3,6 +3,9 @@
 # but you might want to overwrite with a specific user & pass.
 # To do this, simply edit bellow.
 
+# Absolute path to MediaWiki settings configuration
+MEDIAWIKI_SETTINGS_CONFIG_PATH=/etc/LocalSettings.php
+
 # Username to access the MySQL server e.g. dbuser
 USERNAME=root
 
@@ -25,7 +28,7 @@ DBPORT=3306
 # reading the mysql folder content. Feel free to replace by something else.
 # DBNAMES=`find /var/lib/mysql -mindepth 1 -maxdepth 1 -type d | cut -d'/' -f5 | grep -v ^mysql\$ | tr \\\r\\\n ,\ `
 # This one does a list of dbs using a MySQL statement.
-DBNAMES=`mysql --user=$USERNAME --password=$PASSWORD --host=$DBHOST --execute="SHOW DATABASES" | awk '{print $1}' | grep -v ^Database$ | grep -v ^mysql$ | grep -v ^performance_schema$ | grep -v ^information_schema$ | tr \\\r\\\n ,\ `
+DBNAMES=$(mysql --user=$USERNAME --password=$PASSWORD --host=$DBHOST --execute="SHOW DATABASES" | awk '{print $1}' | grep -v ^Database$ | grep -v ^mysql$ | grep -v ^performance_schema$ | grep -v ^information_schema$ | tr \\r\\n ,\ )
 
 # Backup directory location e.g /backups
 # Folders inside this one will be created (daily, weekly, etc.), and the
@@ -58,7 +61,7 @@ MDBNAMES="mysql $DBNAMES"
 # List of DBNAMES to EXLUCDE if DBNAMES are set to all (must be in " quotes)
 DBEXCLUDE=""
 
-# List of space separated table names in a format of db_name.tbl_name 
+# List of space separated table names in a format of db_name.tbl_name
 # to exclude from backup (must be in " quotes).
 IGNORE_TABLES=""
 
