@@ -4,7 +4,7 @@
 # To do this, simply edit bellow.
 
 # Absolute path to MediaWiki settings configuration
-MEDIAWIKI_SETTINGS_CONFIG_PATH=/etc/LocalSettings.php
+MEDIAWIKI_LOCALSETTINGS_PATH=/etc/LocalSettings.php
 
 # Username to access the MySQL server e.g. dbuser
 USERNAME=root

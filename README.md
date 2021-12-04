@@ -28,7 +28,7 @@ Custom modifications to Docker AutoMySQLBackup:
 - backup and restore image uploads
 # Image usage
 
-While running backups ensure you've locked WikiMedia to prevent writes to the database by setting `MEDIAWIKI_SETTINGS_CONFIG_PATH` to the absolute path for the `LocalSettings.php` file for your application. If left unspecified, a default setting of `/etc/LocalSettings.php` will be used.
+While running backups ensure you've locked WikiMedia to prevent writes to the database by setting `MEDIAWIKI_LOCALSETTINGS_PATH` to the absolute path for the `LocalSettings.php` file for your application. If left unspecified, a default setting of `/etc/LocalSettings.php` will be used.
 
 Let's create a bridge network and start a MySQL container as an example.
 
@@ -42,7 +42,7 @@ For the basic one-shot backup, you can run a container like this:
 
 ```console
 docker run --network dbtest \
-    -e MEDIAWIKI_SETTINGS_CONFIG_PATH=./config/LocalSettings.php
+    -e MEDIAWIKI_LOCALSETTINGS_PATH=./config/LocalSettings.php
     -v '/var/lib/automysqlbackup:/backup' \
     -e DBHOST=some-mysql \
     -e DBNAMES=all \
@@ -59,7 +59,7 @@ To run container in a scheduled mode, populate `CRON_SCHEDULE` environment varia
 ```console
 docker run --network dbtest \
     -v '/var/lib/automysqlbackup:/backup' \
-    -e MEDIAWIKI_SETTINGS_CONFIG_PATH=./config/LocalSettings.php
+    -e MEDIAWIKI_LOCALSETTINGS_PATH=./config/LocalSettings.php
     -e DBHOST=some-mysql \
     -e DBNAMES=all \
     -e USERNAME=root \
@@ -91,7 +91,7 @@ Quick tips:
 
 ## Environment variables
 
-- **MEDIAWIKI_SETTINGS_CONFIG_PATH**\
+- **MEDIAWIKI_LOCALSETTINGS_PATH**\
   Pass absolute path to WikiMedia LocalSettings.php, e.g. `/var/www/html/LocalSettings.php`
 
 - **CRON_SCHEDULE**\
