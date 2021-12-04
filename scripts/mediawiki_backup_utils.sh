@@ -27,6 +27,6 @@ lock_mediawiki() {
         echo "DEBUG: Start lock"
         echo "Warn: MediaWiki already locked."
     else
-        echo "$message" | sudo tee -a "$file" >/dev/null
+        echo "$message" | tee -a "$file" >/dev/null
     fi
 }

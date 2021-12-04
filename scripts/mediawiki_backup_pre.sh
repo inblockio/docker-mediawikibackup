@@ -5,7 +5,7 @@ set -e
 # Source backup utilities with busybox support
 dir=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
 # shellcheck disable=SC1091
-. "$dir/lib/mediawiki_backup_utils.sh"
+. "$dir/mediawiki_backup_utils.sh"
 
 # Lock MediaWiki prior to backup operation
 lock_mediawiki
