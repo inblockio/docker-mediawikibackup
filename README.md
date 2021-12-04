@@ -92,7 +92,7 @@ Quick tips:
 ## Environment variables
 
 - **MEDIAWIKI_SETTINGS_CONFIG_PATH**\
-  Pass absolute path to WikiMedia LocalSettings.php, e.g. `/etc/LocalSettings.php`
+  Pass absolute path to WikiMedia LocalSettings.php, e.g. `/var/www/html/LocalSettings.php`
 
 - **CRON_SCHEDULE**\
   If set to cron expression, container will start a cron daemon for scheduled backups.
